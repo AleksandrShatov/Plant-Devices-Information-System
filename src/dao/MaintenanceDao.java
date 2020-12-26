@@ -1,4 +1,7 @@
 package dao;
 
-public class MaintenanceDao {
+import dto.IMaintenance;
+
+public class MaintenanceDao implements IMaintenanceDao {
+
 }

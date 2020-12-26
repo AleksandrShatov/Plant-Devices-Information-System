@@ -1,10 +1,12 @@
 import dao.*;
 import dto.*;
+import menu.*;
 import services.DevicesManager;
 import services.UsersManager;
 import services.WorksManager;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Runner {
@@ -39,6 +41,47 @@ public class Runner {
         usersCheck(userDao, usersManager);
         devicesCheck(deviceDao, devicesManager, userDao);
         worksCheck(workDao, worksManager, deviceDao, userDao);
+
+        /* Основной цикл работы приложения */
+        System.out.println("Добро пожаловать!");
+
+        UsersMenu usersMenu = UsersMenu.getInstance();
+        GuestMenu guestMenu = GuestMenu.getInstance();
+        SelectionMenu selectionMenu = SelectionMenu.getInstance();
+        MainMenu mainMenu = MainMenu.getInstance();
+
+        selectionMenu.setUsersMenu(usersMenu);
+        mainMenu.setSelectionMenu(selectionMenu);
+        mainMenu.setGuestMenu(guestMenu);
+
+        // Заполняем menus данными
+        List<IMenu> menus = new ArrayList<>();
+
+        menus.add(usersMenu);
+        menus.add(guestMenu);
+        menus.add(selectionMenu);
+        menus.add(mainMenu);
+
+        for (IMenu menu : menus) {
+            menu.setTypesDao(typesDao);
+            menu.setCategoriesDao(categoriesDao);
+            menu.setManufacturesDao(manufacturesDao);
+            menu.setPlacesDao(placesDao);
+            menu.setLocationPositionsDao(locationPositionsDao);
+            menu.setUserDao(userDao);
+            menu.setUsersManager(usersManager);
+            menu.setDeviceDao(deviceDao);
+            menu.setDevicesManager(devicesManager);
+            menu.setWorkDao(workDao);
+            menu.setWorksManager(worksManager);
+        }
+
+        mainMenu.show();
+
+
+        System.out.println("Приложение завершило работу. До новых встреч.");
+
+
     }
 
     public static void typesCheck(TypesDao typesDao, UserDao userDao) {
