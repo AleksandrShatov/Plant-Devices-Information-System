@@ -1,5 +1,7 @@
 package menu;
 
+import dto.IUser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +18,7 @@ public class MainMenu extends AbstractMenu {
 
     }
 
-    public int show() {
+    public int show(IUser currentUser) {
         int choice = 0;
         do {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -31,11 +33,11 @@ public class MainMenu extends AbstractMenu {
                 switch (choice) {
                     case 1:
                         System.out.println("Запрос на ввод данных");
-                        choice = selectionMenu.show();
+                        choice = selectionMenu.show(currentUser);
                         break;
 
                     case 2:
-                        choice = guestMenu.show();
+                        choice = guestMenu.show(currentUser);
                         break;
 
                     case 3:

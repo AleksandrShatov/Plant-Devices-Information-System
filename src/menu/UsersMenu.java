@@ -14,7 +14,7 @@ public class UsersMenu extends AbstractMenu {
 
     }
 
-    public int show() {
+    public int show(IUser currentUser) {
         int choice = 0;
         do {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

@@ -1,6 +1,5 @@
 package dao;
 
-import dataForTesting.DataManufacturersTest;
 import dto.IUser;
 
 import java.util.HashSet;
@@ -18,11 +17,14 @@ public class ManufacturesDao implements ICatalogDao<IUser, String> {
 
     private boolean readManufacturers() { //TODO чтение из БД
         if(this.manufacturers == null) {
-            Set<String> manufacturersFromDb = DataManufacturersTest.getInstance().getManufacturers();
             this.manufacturers = new HashSet<>();
-            for (String manufacturer : manufacturersFromDb) {
-                this.manufacturers.add(manufacturer.toUpperCase().trim());
-            }
+            manufacturers.add("SIEMENS");
+            manufacturers.add("ABB");
+            manufacturers.add("MITSUBISHI");
+            manufacturers.add("OMRON");
+            manufacturers.add("SCHNEIDER ELECTRIC");
+            manufacturers.add("СЕНСОР");
+            manufacturers.add("ТЕКО");
             return true;
         } else {
             return false;

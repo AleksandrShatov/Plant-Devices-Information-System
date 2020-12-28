@@ -5,9 +5,10 @@ import java.util.TreeMap;
 
 public class Permissions {
 
-    private final Map<String, Boolean> permissions = new TreeMap<>();
+    private final Map<String, Boolean> permissions;
 
     public Permissions() {
+        permissions = new TreeMap<>();
         addPermissions();
     }
 

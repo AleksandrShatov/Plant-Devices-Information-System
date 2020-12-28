@@ -1,6 +1,5 @@
 package dao;
 
-import dataForTesting.DataPlacesTest;
 import dto.IUser;
 
 import java.util.HashSet;
@@ -18,11 +17,12 @@ public class PlacesDao implements ICatalogDao<IUser, String> {
 
     private boolean readPlaces() { //TODO чтение из БД
         if(this.places == null) {
-            Set<String> placesFromDb = DataPlacesTest.getInstance().getPlaces();
             this.places = new HashSet<>();
-            for (String place : placesFromDb) {
-                this.places.add(place.toUpperCase().trim());
-            }
+            places.add("ЦЕХ ДСП");
+            places.add("ЦЕХ ЛДСП");
+            places.add("РУБИТЕЛЬНОЕ ОТДЕЛЕНИЕ");
+            places.add("ОТДЕЛЕНИЕ СУШКИ");
+            places.add("ТЕРМОМАСЛЯНАЯ КОТЕЛЬНАЯ");
             return true;
         }
         return false;

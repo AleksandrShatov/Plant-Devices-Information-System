@@ -1,28 +1,47 @@
 package dao;
 
-import dataForTesting.DataTypesTest;
 import dto.IUser;
-
+import java.io.File;
+import java.sql.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class TypesDao implements ICatalogDao<IUser, String>{
 
+    private static final String str = "MainModule" +  File.separator + "resources" + File.separator + "sqlite" + File.separator + "pdis.db";
+
+    private static final String DB_ADDRESS = "jdbc:sqlite:" + str;
+
+    private static final String JDBC_CLASS = "org.sqlite.JDBC";
+
     private static TypesDao instance;
+
+    private Connection connection;
 
     private Set<String> types;
 
     private TypesDao() {
-        readTypes();
+        try {
+            Class.forName(JDBC_CLASS);
+            connection = DriverManager.getConnection(DB_ADDRESS);
+            System.out.println("Connected!");
+        } catch (Exception e) {
+            System.out.println("Ошибка подключения к БД!");
+        }
+//        readTypes();
     }
 
     private boolean readTypes() { //TODO чтение из БД
         if(this.types == null) {
-            Set<String> typesFromDb = DataTypesTest.getInstance().getTypes();
             this.types = new HashSet<>();
-            for (String type : typesFromDb) {
-                this.types.add(type.toLowerCase().trim());
-            }
+            types.add("индуктивный датчик");
+            types.add("электромагнитный расходомер");
+            types.add("шариковый подшипник");
+            types.add("асинхронный электродвигатель");
+            types.add("оптический датчик");
+            types.add("газовая горелка");
+            types.add("частотный преобразователь");
             return true;
         } else {
             return false;
@@ -31,19 +50,39 @@ public class TypesDao implements ICatalogDao<IUser, String>{
 
     @Override
     public boolean isContainValue(String type) {
-        return types.contains(type.toLowerCase().trim());
+        return getAll().contains(type.toLowerCase().trim());
     }
 
     @Override
     public Set<String> getAll() {
-        return types;
+        try(Statement statement = connection.createStatement()) {
+            Set<String> types = new HashSet<>();
+            String query = "SELECT type FROM types";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                types.add(resultSet.getString("type"));
+            }
+            return types;
+        } catch (SQLException e) {
+            System.out.println("Ошибка!"); // TODO
+            System.out.println(e.getMessage());
+            return Collections.emptySet();
+        }
     }
 
     @Override
     public boolean create(IUser creator, String type) {
         if(creator.checkPermission("CAN_CREATE_TYPE")) {
-            types.add(type.toLowerCase().trim());
-            return true;
+            String prepareQuery = "INSERT INTO types ('type') VALUES(?)";
+            try(PreparedStatement statement = connection.prepareStatement(prepareQuery)){
+                statement.setObject(1, type.toLowerCase().trim());
+                statement.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.out.println("Ошибка!"); // TODO
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
         return false;
     }
@@ -65,7 +104,7 @@ public class TypesDao implements ICatalogDao<IUser, String>{
         return false;
     }
 
-    public static TypesDao getInstance() {
+    public static synchronized TypesDao getInstance() {
         if(instance == null) {
             instance = new TypesDao();
         } else {

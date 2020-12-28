@@ -1,8 +1,8 @@
 package dao;
 
-import dataForTesting.DataDevicesTest;
 import dto.IDevice;
 import dto.IUser;
+import dto.SimpleDevice;
 
 import java.util.*;
 
@@ -12,15 +12,19 @@ public class DeviceDao implements IDeviceDao {
 
     private Map<Integer, IDevice> devices;
 
-    public DeviceDao() {
+    private DeviceDao() {
         readDevices();
     }
 
     private boolean readDevices() { //TODO чтение из БД
         if(this.devices == null) {
-            List<IDevice> devicesFromDb = DataDevicesTest.getInstance().getDevices();
+            List<IDevice> devicesList = new ArrayList<>();
+            devicesList.add(new SimpleDevice(1, "ВБИ-Б22-45У-1113-З", "индуктивный датчик", "КИП", "СЕНСОР"));
+            devicesList.add(new SimpleDevice(2, "ВБИ-М08-45Р-1111-З", "индуктивный датчик", "КИП", "СЕНСОР"));
+            devicesList.add(new SimpleDevice(3, "7302BETNG XA", "шариковый подшипник", "МЕХАНИКА", "ABB"));
+            devicesList.add(new SimpleDevice(4, "R88M-1L1K030C-BS2", "асинхронный двигатель", "ЭЛЕКТРИКА", "OMRON"));
             this.devices = new HashMap<>();
-            for (IDevice device : devicesFromDb) {
+            for (IDevice device : devicesList) {
                 this.devices.put(device.getId(), device);
             }
             return true;

@@ -73,8 +73,9 @@ public class SimpleDevice implements IDevice {
         }
     }
 
-    public void addDocument(String name, File document) {
+    public boolean addDocument(String name, File document) {
         documentations.put(name, document);
+        return true;
     }
 
     public void setDocumentations(Map<String, File> documentations) {

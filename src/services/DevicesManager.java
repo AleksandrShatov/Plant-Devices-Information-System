@@ -12,7 +12,7 @@ public class DevicesManager implements IDevicesManager {
 
     private DeviceDao deviceDao;
 
-    public DevicesManager(DeviceDao deviceDao) {
+    private DevicesManager(DeviceDao deviceDao) {
         this.deviceDao = deviceDao;
     }
 

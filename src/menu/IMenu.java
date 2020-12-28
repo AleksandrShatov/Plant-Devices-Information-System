@@ -1,6 +1,7 @@
 package menu;
 
 import dao.*;
+import dto.IUser;
 import services.IDevicesManager;
 import services.IMaintenancesManager;
 import services.IUsersManager;
@@ -8,7 +9,7 @@ import services.IWorksManager;
 
 public interface IMenu {
 
-    int show();
+    int show(IUser currentUser);
 
     void setTypesDao(ICatalogDao typesDao);
     ICatalogDao getTypesDao();

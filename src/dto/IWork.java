@@ -13,5 +13,5 @@ public interface IWork {
     LocalTime getFinishTime();
     LocalTime getTotalTime();
     boolean addDevice(IDevice device);
-    boolean deleteDevice(IDevice device);
+    boolean deleteDevice(IDevice device); // TODO by Id
 }

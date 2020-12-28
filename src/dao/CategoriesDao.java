@@ -1,6 +1,5 @@
 package dao;
 
-import dataForTesting.DataCategoriesTest;
 import dto.IUser;
 
 import java.util.HashSet;
@@ -18,11 +17,14 @@ public class CategoriesDao implements ICatalogDao<IUser, String> {
 
     private boolean readCategories() { //TODO чтение из БД
         if(this.categories == null) {
-            Set<String> categoriesFromDb = DataCategoriesTest.getInstance().getCategories();
             this.categories = new HashSet<>();
-            for (String category : categoriesFromDb) {
-                this.categories.add(category.toUpperCase().trim());
-            }
+            categories.add("КИП");
+            categories.add("МЕХАНИКА");
+            categories.add("ЭЛЕКТРОНИКА");
+            categories.add("ГИДРАВЛИКА");
+            categories.add("ЭНЕРГЕТИКА");
+            categories.add("ЛАБОРАТОРНОЕ ОБОРУДОВАНИЕ");
+            categories.add("ПНЕВМАТИКА");
             return true;
         }
         return false;

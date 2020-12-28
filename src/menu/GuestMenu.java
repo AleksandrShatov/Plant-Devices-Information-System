@@ -1,5 +1,7 @@
 package menu;
 
+import dto.IUser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +14,7 @@ public class GuestMenu extends AbstractMenu {
 
     }
 
-    public int show() { // TODO нужно упростить, т.к. есть всё кроме добавления и удаления
+    public int show(IUser currentUser) { // TODO нужно упростить, т.к. есть всё кроме добавления и удаления
         int choice = 0;
         do {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

@@ -1,5 +1,8 @@
 package menu;
 
+import dto.IUser;
+import menu.catalogs.CatalogsMenu;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,12 +12,13 @@ public class SelectionMenu extends AbstractMenu {
     private static SelectionMenu instance;
 
     private UsersMenu usersMenu;
+    private CatalogsMenu catalogsMenu;
 
     private SelectionMenu() {
 
     }
 
-    public int show() {
+    public int show(IUser currentUser) {
         int choice = 0;
         do {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -32,7 +36,7 @@ public class SelectionMenu extends AbstractMenu {
 
                 switch (choice) {
                     case 1:
-                        choice = usersMenu.show();
+                        choice = usersMenu.show(currentUser);
                         break;
 
                     case 2:
@@ -48,7 +52,7 @@ public class SelectionMenu extends AbstractMenu {
                         break;
 
                     case 5:
-
+                        choice = catalogsMenu.show(currentUser);
                         break;
 
                     case 6:
@@ -69,6 +73,10 @@ public class SelectionMenu extends AbstractMenu {
 
     public void setUsersMenu(UsersMenu usersMenu) {
         this.usersMenu = usersMenu;
+    }
+
+    public void setCatalogsMenu(CatalogsMenu catalogsMenu) {
+        this.catalogsMenu = catalogsMenu;
     }
 
     public static SelectionMenu getInstance() {

@@ -1,7 +1,9 @@
 package dao;
 
-import dataForTesting.DataUsersTest;
 import dto.IUser;
+import dto.Permissions;
+import dto.User;
+import dto.UserRole;
 
 import java.util.*;
 
@@ -17,9 +19,16 @@ public class UserDao implements IUserDao {
 
     private boolean readUsers() { //TODO чтение из БД
         if(this.users == null) {
-            List<IUser> usersFromDb = DataUsersTest.getInstance().getUsers();
+            List<IUser> usersList = new ArrayList<>();
+            usersList.add(new User(123, "Alex", "11111", "Алексин Николай Владимирович", UserRole.Admin, new Permissions()));
+            usersList.add(new User(371, "Alex", "22222", "Горохов Сергей Валентинович", UserRole.Guest, new Permissions()));
+            usersList.add(new User(456, "Bob", "77777", "Прохоров Вадим Петрович", UserRole.Manager, new Permissions()));
+            usersList.add(new User(789, "Dima", "99999", "Стрельченко Дмитрий Сергеевич", UserRole.Moderator, new Permissions()));
+            usersList.add(new User(357, "Alla", "56565", "Никонова Алла Игоревна", UserRole.Admin, new Permissions()));
+            usersList.add(new User(846, "Nikon", "87879", "Перевалов Николай Юрьевич", UserRole.Guest, new Permissions()));
+            usersList.add(new User(914, "Kate", "33333", "Кревчук Екатерина Георгиевна", UserRole.Moderator, new Permissions()));
             this.users = new HashMap<>();
-            for (IUser user : usersFromDb) {
+            for (IUser user : usersList) {
                 this.users.put(user.getId(), user);
             }
             return true;

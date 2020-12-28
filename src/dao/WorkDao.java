@@ -1,9 +1,10 @@
 package dao;
 
-import dataForTesting.DataWorksTest;
 import dto.IUser;
 import dto.IWork;
+import dto.Work;
 
+import java.time.LocalTime;
 import java.util.*;
 
 public class WorkDao implements IWorkDao {
@@ -18,9 +19,15 @@ public class WorkDao implements IWorkDao {
 
     private boolean readWorks() { //TODO чтение из БД
         if(this.works == null) {
-            List<IWork> worksFromDb = DataWorksTest.getInstance().getWorks();
+            List<IWork> worksList = new ArrayList<>();
+            worksList.add(new Work(11, "ЦЕХ ДСП", "2700TS55", LocalTime.of(10, 30, 0), LocalTime.of(10,50,0)));
+            worksList.add(new Work(12, "ЦЕХ ДСП", "1500LS15", LocalTime.of(11, 10, 0), LocalTime.of(12,30,0)));
+            worksList.add(new Work(13, "ЦЕХ ДСП", "2200TS11", LocalTime.of(13, 30, 0), LocalTime.of(13,55,0)));
+            worksList.add(new Work(14, "ЦЕХ ЛДСП", "4400LI33", LocalTime.of(14, 5, 0), LocalTime.of(14,45,0)));
+            worksList.add(new Work(15, "ЦЕХ ЛДСП", "2700PT31", LocalTime.of(14, 55, 0), LocalTime.of(15,35,0)));
+            worksList.add(new Work(16, "РУБИТЕЛЬНОЕ ОТДЕЛЕНИЕ", "2500MT13", LocalTime.of(15, 50, 0), LocalTime.of(17,40,0)));
             this.works = new HashMap<>();
-            for (IWork work : worksFromDb) {
+            for (IWork work : worksList) {
                 this.works.put(work.getId(), work);
             }
             return true;

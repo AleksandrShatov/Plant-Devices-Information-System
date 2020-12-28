@@ -1,6 +1,5 @@
 package dao;
 
-import dataForTesting.DataLocationPositionsTest;
 import dto.IUser;
 
 import java.util.HashSet;
@@ -18,11 +17,16 @@ public class LocationPositionsDao implements ICatalogDao<IUser, String>{
 
     private boolean readLocationPositions() { //TODO чтение из БД
         if(this.locationPositions == null) {
-            Set<String> locationPositionsFromDb = DataLocationPositionsTest.getInstance().getLocationPositions();
             this.locationPositions = new HashSet<>();
-            for (String locationPosition : locationPositionsFromDb) {
-                this.locationPositions.add(locationPosition.toUpperCase().trim());
-            }
+            locationPositions.add("1500LS15");
+            locationPositions.add("2200TS11");
+            locationPositions.add("1150RP28");
+            locationPositions.add("5500BR19");
+            locationPositions.add("4400LI33");
+            locationPositions.add("2700TS55");
+            locationPositions.add("2500MT13");
+            locationPositions.add("2250LS13");
+            locationPositions.add("2700PT31");
             return true;
         }
         return false;

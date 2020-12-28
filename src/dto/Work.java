@@ -9,7 +9,7 @@ public class Work implements IWork {
     private PlacePosition placePosition;
     private LocalTime startTime;
     private LocalTime finishTime;
-    private List<IDevice> devicesForWork;
+    private List<IDevice> devices;
     private String description;
 
     public Work(Integer id, PlacePosition placePosition, LocalTime startTime, LocalTime finishTime) {
@@ -18,7 +18,7 @@ public class Work implements IWork {
         this.startTime = startTime;
         this.finishTime= finishTime;
         this.description = "";
-        this.devicesForWork = new ArrayList<>();
+        this.devices = new ArrayList<>();
     }
 
     public Work(Integer id, String place, String locationPosition, LocalTime startTime, LocalTime finishTime) {
@@ -27,7 +27,7 @@ public class Work implements IWork {
         this.startTime = startTime;
         this.finishTime= finishTime;
         this.description = "";
-        this.devicesForWork = new ArrayList<>();
+        this.devices = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -79,11 +79,11 @@ public class Work implements IWork {
     }
 
     public List<IDevice> getDevices() {
-        return devicesForWork;
+        return devices;
     }
 
-    public void setDevicesForWork(List<IDevice> devicesForWork) {
-        this.devicesForWork = devicesForWork;
+    public void setDevices(List<IDevice> devices) {
+        this.devices = devices;
     }
 
     public String getDescription() {
@@ -95,13 +95,13 @@ public class Work implements IWork {
     }
 
     public boolean addDevice(IDevice device) {
-       return devicesForWork.add(device);
+       return devices.add(device);
     }
 
     public boolean deleteDevice(IDevice device) {
         boolean result = false;
-        if(devicesForWork.contains(device)) {
-            result = devicesForWork.remove(device);
+        if(devices.contains(device)) {
+            result = devices.remove(device);
         } else {
             System.out.println("Данного устройства в текущей работе не обнаружено!");
         }
@@ -125,7 +125,7 @@ public class Work implements IWork {
                 startTime.getMinute() + ":" + startTime.getSecond() + "}" +
                 ", finishTime=" + "{" + finishTime.getHour() + ":" +
                 finishTime.getMinute() + ":" + finishTime.getSecond() + "}" +
-                ", devicesForWork=" + devicesForWork.toString() +
+                ", devicesForWork=" + devices.toString() +
                 ", description='" + description + '\'' +
                 '}';
     }
