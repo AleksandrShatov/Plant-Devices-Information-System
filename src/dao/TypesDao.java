@@ -9,9 +9,9 @@ import java.util.Set;
 
 public class TypesDao implements ICatalogDao<IUser, String>{
 
-    private static final String str = "MainModule" +  File.separator + "resources" + File.separator + "sqlite" + File.separator + "pdis.db";
+    private static final String DB_PATH = "MainModule" +  File.separator + "resources" + File.separator + "sqlite" + File.separator + "pdis.db";
 
-    private static final String DB_ADDRESS = "jdbc:sqlite:" + str;
+    private static final String DB_ADDRESS = "jdbc:sqlite:" + DB_PATH;
 
     private static final String JDBC_CLASS = "org.sqlite.JDBC";
 
@@ -28,23 +28,6 @@ public class TypesDao implements ICatalogDao<IUser, String>{
             System.out.println("Connected!");
         } catch (Exception e) {
             System.out.println("Ошибка подключения к БД!");
-        }
-//        readTypes();
-    }
-
-    private boolean readTypes() { //TODO чтение из БД
-        if(this.types == null) {
-            this.types = new HashSet<>();
-            types.add("индуктивный датчик");
-            types.add("электромагнитный расходомер");
-            types.add("шариковый подшипник");
-            types.add("асинхронный электродвигатель");
-            types.add("оптический датчик");
-            types.add("газовая горелка");
-            types.add("частотный преобразователь");
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -99,7 +82,16 @@ public class TypesDao implements ICatalogDao<IUser, String>{
     @Override
     public boolean delete(IUser deleter, String type) {
         if(deleter.checkPermission("CAN_DELETE_TYPE")) {
-            return types.remove(type.toLowerCase().trim());
+            String prepareQuery = "DELETE FROM types WHERE type = ?";
+            try(PreparedStatement statement = connection.prepareStatement(prepareQuery)){
+                statement.setObject(1, type.toLowerCase().trim());
+                statement.execute();
+                return true;
+            } catch (SQLException e) {
+                System.out.println("Ошибка!"); // TODO
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
         return false;
     }
