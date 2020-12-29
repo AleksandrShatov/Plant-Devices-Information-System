@@ -3,6 +3,8 @@ import dao.*;
 import dto.IUser;
 import menu.*;
 import menu.catalogs.CatalogsMenu;
+import menu.catalogs.CategoriesMenu;
+import menu.catalogs.ManufacturersMenu;
 import menu.catalogs.TypesMenu;
 import services.DevicesManager;
 import services.UsersManager;
@@ -66,6 +68,8 @@ public class Runner {
         GuestMenu guestMenu = GuestMenu.getInstance();
 
         TypesMenu typesMenu = TypesMenu.getInstance();
+        CategoriesMenu categoriesMenu = CategoriesMenu.getInstance();
+        ManufacturersMenu manufacturersMenu = ManufacturersMenu.getInstance();
         CatalogsMenu catalogsMenu = CatalogsMenu.getInstance();
 
         SelectionMenu selectionMenu = SelectionMenu.getInstance();
@@ -73,15 +77,19 @@ public class Runner {
         MainMenu mainMenu = MainMenu.getInstance();
 
         catalogsMenu.setTypesMenu(typesMenu);
+        catalogsMenu.setCategoriesMenu(categoriesMenu);
+        catalogsMenu.setManufacturersMenu(manufacturersMenu);
         selectionMenu.setUsersMenu(usersMenu);
         selectionMenu.setCatalogsMenu(catalogsMenu);
         mainMenu.setSelectionMenu(selectionMenu);
         mainMenu.setGuestMenu(guestMenu);
 
-        // Заполняем menus данными
+        // Создаём список menus и заполняем данными
         List<IMenu> menus = new ArrayList<>();
 
         menus.add(typesMenu);
+        menus.add(categoriesMenu);
+        menus.add(manufacturersMenu);
         menus.add(catalogsMenu);
         menus.add(usersMenu);
         menus.add(guestMenu);

@@ -28,7 +28,7 @@ public class SelectionMenu extends AbstractMenu {
             System.out.println("3. Меню для работ.");
             System.out.println("4. Меню для ППР.");
             // TODO проверка на роль для работы со списками
-            System.out.println("5. Меню для работы со списками.");
+            System.out.println("5. Меню для работы с каталогами.");
             System.out.println("6. Выход в предыдущее меню.");
             try {
                 String line = reader.readLine();

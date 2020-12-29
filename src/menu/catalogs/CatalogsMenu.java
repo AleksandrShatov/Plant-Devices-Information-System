@@ -2,6 +2,7 @@ package menu.catalogs;
 
 import dto.IUser;
 import menu.AbstractMenu;
+import menu.IMenu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +12,9 @@ public class CatalogsMenu extends AbstractMenu {
 
     private static CatalogsMenu instance;
 
-    private TypesMenu typesMenu;
+    private IMenu typesMenu;
+    private IMenu categoriesMenu;
+    private IMenu manufacturersMenu;
 
     private CatalogsMenu() {
 
@@ -38,11 +41,11 @@ public class CatalogsMenu extends AbstractMenu {
                         break;
 
                     case 2:
-
+                        choice = categoriesMenu.show(currentUser);
                         break;
 
                     case 3:
-
+                        choice = manufacturersMenu.show(currentUser);
                         break;
 
                     case 4:
@@ -69,8 +72,16 @@ public class CatalogsMenu extends AbstractMenu {
         return 13;
     }
 
-    public void setTypesMenu(TypesMenu typesMenu) {
+    public void setTypesMenu(IMenu typesMenu) {
         this.typesMenu = typesMenu;
+    }
+
+    public void setCategoriesMenu(IMenu categoriesMenu) {
+        this.categoriesMenu = categoriesMenu;
+    }
+
+    public void setManufacturersMenu(IMenu manufacturersMenu) {
+        this.manufacturersMenu = manufacturersMenu;
     }
 
     public static CatalogsMenu getInstance() {

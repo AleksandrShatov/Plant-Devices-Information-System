@@ -93,9 +93,7 @@ public class TypesMenu extends AbstractMenu {
                 System.out.println("Введено неверное значение! Попробуйте заново.");
             }
 
-
         } while (choice < 6 && choice >= 0);
-
 
         return 13;
     }
