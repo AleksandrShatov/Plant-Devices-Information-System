@@ -18,18 +18,6 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        /* Соединение с базой SQLite */
-        try {
-            Class.forName("org.sqlite.JDBC");
-            Connection con = DriverManager.getConnection (
-                    "jdbc:sqlite:pdis.db");
-            System.out.println("Connected");
-
-
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-
         /* Создаём все необходимые наборы списков */
         TypesDao typesDao = TypesDao.getInstance();
         CategoriesDao categoriesDao = CategoriesDao.getInstance();
@@ -37,7 +25,7 @@ public class Runner {
         PlacesDao placesDao = PlacesDao.getInstance();
         LocationPositionsDao locationPositionsDao = LocationPositionsDao.getInstance();
 
-        /* Создаём все необходимые менеджеры */
+        /* Создаём все необходимые сервисы */
         UserDao userDao = UserDao.getInstance();
         UsersManager usersManager = UsersManager.getInstance(userDao);
 
@@ -110,9 +98,8 @@ public class Runner {
             menu.setWorksManager(worksManager);
         }
 
-
+        // Точка запуска приложения
         mainMenu.show(user);
-
 
         System.out.println("Приложение завершило работу. До новых встреч.");
 

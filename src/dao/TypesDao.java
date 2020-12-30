@@ -19,15 +19,13 @@ public class TypesDao implements ICatalogDao<IUser, String>{
 
     private Connection connection;
 
-    private Set<String> types;
-
     private TypesDao() {
         try {
             Class.forName(JDBC_CLASS);
             connection = DriverManager.getConnection(DB_ADDRESS);
-            System.out.println("Connected!");
-        } catch (Exception e) {
-            System.out.println("Ошибка подключения к БД!");
+            System.out.println("TypesDao: Connected!");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("TypesDao: Ошибка подключения к БД!");
         }
     }
 
@@ -56,8 +54,8 @@ public class TypesDao implements ICatalogDao<IUser, String>{
     @Override
     public boolean create(IUser creator, String type) {
         if(creator.checkPermission("CAN_CREATE_TYPE")) {
-            String prepareQuery = "INSERT INTO types ('type') VALUES(?)";
-            try(PreparedStatement statement = connection.prepareStatement(prepareQuery)){
+            String preparedQuery = "INSERT INTO types ('type') VALUES(?)";
+            try(PreparedStatement statement = connection.prepareStatement(preparedQuery)){
                 statement.setObject(1, type.toLowerCase().trim());
                 statement.executeUpdate();
                 return true;
@@ -82,8 +80,8 @@ public class TypesDao implements ICatalogDao<IUser, String>{
     @Override
     public boolean delete(IUser deleter, String type) {
         if(deleter.checkPermission("CAN_DELETE_TYPE")) {
-            String prepareQuery = "DELETE FROM types WHERE type = ?";
-            try(PreparedStatement statement = connection.prepareStatement(prepareQuery)){
+            String preparedQuery = "DELETE FROM types WHERE type = ?";
+            try(PreparedStatement statement = connection.prepareStatement(preparedQuery)){
                 statement.setObject(1, type.toLowerCase().trim());
                 statement.execute();
                 return true;

@@ -45,11 +45,9 @@ public class MainMenu extends AbstractMenu {
                         break;
                 }
 
-
-            } catch (IOException e) {
+            } catch (NumberFormatException | IOException e) {
                 System.out.println("Введено неверное значение! Попробуйте заново.");
             }
-
 
         } while (choice < 3);
         return 0;
